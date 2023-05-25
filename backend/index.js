@@ -7,6 +7,8 @@ const app = express();
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
 
+app.use(cookieParser());
+
 // middleware for connecting frontend and backend
 app.use(cors());
 

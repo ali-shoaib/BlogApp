@@ -56,18 +56,44 @@ const authController={
         let accessToken;
         let refreshToken;
 
-        const userToRegister = new User({
-            username,
-            email,
-            name,
-            password: hashedPassword,
+        let user;
+
+        try{
+            const userToRegister = new User({
+                username,
+                email,
+                name,
+                password: hashedPassword,
+            });
+    
+            user = await userToRegister.save();
+
+            // token generation
+            accessToken = JWTService.signAccessToken({ _id: user._id }, "30m");
+
+            refreshToken = JWTService.signRefreshToken({ _id: user._id }, "60m");
+        }
+        catch(err){
+            next(err);
+        }
+
+        // store refresh token in db
+        await JWTService.storeRefreshToken(refreshToken, user._id);
+
+        // send tokens in cookie
+        res.cookie("accessToken", accessToken, {
+            maxAge: 1000 * 60 * 60 * 24,
+            httpOnly: true,
         });
 
-        const user = await userToRegister.save();
+        res.cookie("refreshToken", refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24,
+            httpOnly: true,
+        });
 
-        // const userDto = new UserDTO(user);
+        const userDto = new UserDTO(user);
 
-        return res.status(201).json({ user });
+        return res.status(201).json({ user:userDto });
     },
     async login(req,res,next){
         const userLoginSchema = Joi.object({
@@ -110,6 +136,32 @@ const authController={
         } catch (error) {
             return next(error);
         }
+
+        const accessToken = JWTService.signAccessToken({ _id: user._id }, "30m");
+        const refreshToken = JWTService.signRefreshToken({ _id: user._id }, "60m");
+
+        // update refresh token in database
+        try {
+            await RefreshToken.updateOne(
+                {
+                _id: user._id,
+                },
+                { token: refreshToken },
+                { upsert: true }
+            );
+        } catch (error) {
+            return next(error);
+        }
+
+        res.cookie("accessToken", accessToken, {
+            maxAge: 1000 * 60 * 60 * 24,
+            httpOnly: true,
+        });
+
+        res.cookie("refreshToken", refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24,
+            httpOnly: true,
+        });
 
         let userDto = new UserDTO(user);
 
