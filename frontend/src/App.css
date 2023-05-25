@@ -1,0 +1,25 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.App{
+  text-align: center;
+  padding: 20px 0 0 0;
+}
+.App input{
+  width: 400px;
+  height: 40px;
+  padding: 0 0 0 5px;
+}
+.App button{
+  height: 40px;
+  padding: 0 10px 0 10px;
+  margin: 0 0 0 10px;
+}
+.list{
+  margin: 10px 0 0 0;
+}
+.list-todos{
+  margin: 0 0 5px 0;
+}
