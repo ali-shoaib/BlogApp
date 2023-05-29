@@ -2,6 +2,8 @@ const Joi = require('joi');
 const User = require('../models/user');
 const bcrypt = require("bcryptjs");
 const UserDTO = require('../dto/userDTO');
+const JWTService = require('../services/JWTService');
+const RefreshToken = require("../models/token");
 
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/;
 
@@ -166,6 +168,26 @@ const authController={
         let userDto = new UserDTO(user);
 
         return res.status(200).json({user:userDto});
+    },
+    async logout(req,res,next){
+        // 1. delete refresh token from db
+        const { refreshToken } = req.cookies;
+
+        try {
+        await RefreshToken.deleteOne({ token: refreshToken });
+        } catch (error) {
+        return next(error);
+        }
+
+        // delete cookies
+        res.clearCookie("accessToken");
+        res.clearCookie("refreshToken");
+
+        // 2. response
+        res.status(200).json({ user: null, auth: false });
+    },
+    async refresh(req,res,next){
+        
     },
     async getAllUsers(req,res){
         let users = await User.find();

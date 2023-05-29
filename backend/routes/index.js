@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const authController = require('../controller/authController');
+const auth = require('../middleware/auth');
 
 //testing
 router.get('/test', (req, res) => res.send("Hello world 123"));
@@ -10,6 +11,9 @@ router.post('/login', authController.login);
 
 //register
 router.post('/register', authController.register);
+
+//logout
+router.post('/logout', auth ,authController.logout);
 
 //getAllUsers
 router.get('/allusers', authController.getAllUsers);

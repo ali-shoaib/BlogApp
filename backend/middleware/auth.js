@@ -1,6 +1,8 @@
 const JWTService = require('../services/JWTService');
+const User = require('../models/user');
+const UserDTO = require('../dto/userDTO');
 
-const auth = async(req, res,next) => {
+const auth = async(req,res,next) => {
     try{
         const {refreshToken, accessToken} = req.cookies;
 
@@ -10,7 +12,7 @@ const auth = async(req, res,next) => {
                 message: 'Unauthorized'
             }
     
-            return next(error)
+            return next(error);
         }
     
         let _id;
@@ -41,3 +43,5 @@ const auth = async(req, res,next) => {
         return next(err);
     }
 }
+
+module.exports = auth;
