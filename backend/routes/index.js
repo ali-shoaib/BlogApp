@@ -15,6 +15,9 @@ router.post('/register', authController.register);
 //logout
 router.post('/logout', auth ,authController.logout);
 
+// refresh
+router.get('/refresh', authController.refresh);
+
 //getAllUsers
 router.get('/allusers', authController.getAllUsers);
 

@@ -7,11 +7,11 @@ const commentSchema = new mongoose.Schema({
   },
   blog:{
     type:mongoose.SchemaTypes.ObjectId,
-    ref:'blogs'
+    ref:'Blog'
   },
   author:{
     type:mongoose.SchemaTypes.ObjectId,
-    ref:'users'
+    ref:'User'
   }
 }, {timestamps: true});
 
