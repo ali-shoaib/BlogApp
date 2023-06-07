@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const User = require('../models/user');
 const bcrypt = require("bcryptjs");
-const UserDTO = require('../dto/userDTO');
+const UserDTO = require('../dto/user');
 const JWTService = require('../services/JWTService');
 const RefreshToken = require("../models/token");
 
