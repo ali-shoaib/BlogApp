@@ -1,0 +1,3 @@
+const FRONTEND_INTERNAL_API_PATH = 'http://localhost:5000/';
+
+export {FRONTEND_INTERNAL_API_PATH};

@@ -16,8 +16,8 @@ function Navbar() {
         <NavLink to='signout' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}><button className={style.signOutButton}>SignOut</button></NavLink>
         :
         <>
-            <NavLink to='login' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}><button className={style.logInButton}>LogIn</button></NavLink>
-            <NavLink to='signup' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}><button className={style.signUpButton}>SignUp</button></NavLink>
+          <NavLink to='login' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}><button className={style.logInButton}>LogIn</button></NavLink>
+          <NavLink to='signup' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}><button className={style.signUpButton}>SignUp</button></NavLink>
         </>
         }
     </nav>
