@@ -1,3 +1,4 @@
 const FRONTEND_INTERNAL_API_PATH = 'http://localhost:5000/';
+const NEWS_API_KEY = '6d3b33047add4a388bcbcad15a833cf4';
 
-export {FRONTEND_INTERNAL_API_PATH};
+export {FRONTEND_INTERNAL_API_PATH, NEWS_API_KEY};

@@ -31,6 +31,7 @@ function Login() {
                 username: response.data.user.username,
                 auth: response.data.auth,
             };
+            console.log("response => ",response);
     
             dispatch(setUser(user));
             // 2. redirect -> homepage
@@ -38,7 +39,7 @@ function Login() {
         } 
         else if (response.code) {
             // display error message
-            setError(response.message);
+            setError(response.response.statusText);
         }
     };
     
@@ -95,7 +96,7 @@ function Login() {
           Register
         </button>
       </span>
-      {<p className={styles.errorMessage}>{error}</p>}
+      {error !== ''?<p className={styles.errorMessage}>{error}</p>:null}
     </div>
   )
 }

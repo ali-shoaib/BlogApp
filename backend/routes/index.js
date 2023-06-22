@@ -21,5 +21,7 @@ router.get('/refresh', authController.refresh);
 //getAllUsers
 router.get('/allusers', authController.getAllUsers);
 
+//deleteAUser
+router.post('/deleteuser', authController.deleteUser);
 
 module.exports = router;

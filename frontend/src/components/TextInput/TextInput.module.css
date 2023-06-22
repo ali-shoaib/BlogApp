@@ -3,6 +3,7 @@
     flex-direction: column;
     width: inherit;
     align-items: center;
+    position: relative;
 }
 .textInputWrapper input{
     padding: 18px 30px;
@@ -18,4 +19,18 @@
     color: #de1b55;
     text-align: left;
     width: 30%;
+}
+.showpassbtn img{
+    width: 20px;
+    background: transparent;
+    margin: 0;
+}
+.showpassbtn{
+    position: absolute;
+    right: 455px;
+    top: 33px;
+    border-radius: 50px;
+    border-radius: 50px;
+    background: #fff;
+    cursor: pointer;
 }

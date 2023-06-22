@@ -167,7 +167,7 @@ const authController={
 
         let userDto = new UserDTO(user);
 
-        return res.status(200).json({user:userDto});
+        return res.status(200).json({user:userDto, auth:true});
     },
     async logout(req,res,next){
         // 1. delete refresh token from db
@@ -253,6 +253,16 @@ const authController={
         let userDto = new UserDTO(users);
 
         return res.status(200).json(users);
+    },
+    async deleteUser(req,res){
+        try{
+            let user = await User.deleteOne({_id: req.body.id})
+
+            return res.status(200).json({success:true, data: user});
+        }
+        catch(err){
+            res.status(500).json({success:false, message: err});
+        }
     }
 }
 
