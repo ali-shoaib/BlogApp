@@ -34,3 +34,29 @@
     background: #fff;
     cursor: pointer;
 }
+
+.searchBlogInput{
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    align-items: center;
+    position: relative;
+}
+.searchBlogInput .searchicon{
+    position: absolute;
+    right: 0;
+}
+.searchBlogInput input{
+    background: url("https://i0.wp.com/www.skillsonics.com/wp-content/uploads/2018/10/search-icon.png") no-repeat;
+    background-position-x: 97%;
+    background-position-y: 50%;
+    background-size: 35px;
+    padding: 18px 30px;
+    display: block;
+    margin: 40px auto 0 auto;
+    outline: none;
+    width: 30%;
+    border: 1px solid #fff;
+    border-radius: 35px;
+    font-size: 20px;
+}

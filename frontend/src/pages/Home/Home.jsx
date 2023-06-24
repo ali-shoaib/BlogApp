@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getNews } from '../../api/external';
 import styles from "./Home.module.css";
 import Loader from '../../components/Loader/Loader';
+import TextInput from '../../components/TextInput/TextInput';
 
 function Home() {
   const [articles,setArticles]=useState([]);
@@ -12,7 +13,7 @@ function Home() {
       setArticles(response);
     })()
 
-    setArticles([])
+    setArticles([]);
   },[])
 
   const handleCardClick=(url)=>{
@@ -25,6 +26,10 @@ function Home() {
   return (
     <>
     <div className={styles.header}>Latest Articles</div>
+    <TextInput
+    name="searchbloginput"
+    placeholder="Search Blog..."
+    />
     <div className={styles.grid}>
       {articles.map(ar => (
         <div className={styles.card} key={ar.url} onClick={() => handleCardClick(ar.url)}>
