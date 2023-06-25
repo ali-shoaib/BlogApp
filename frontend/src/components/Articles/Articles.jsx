@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from "./Articles.module.css";
 import TextInput from '../../components/TextInput/TextInput';
 
@@ -20,7 +20,7 @@ function Articles({articles}) {
     const handleCardClick=(url)=>{
         window.open(url,"_blank");
     }
-    
+
     const [data, setData] = useState(null);
     const [value, setValue] = useState("");
     const [searchTimeout, setSearchTimeout] = useState(null);
