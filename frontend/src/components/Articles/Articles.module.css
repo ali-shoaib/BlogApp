@@ -1,10 +1,4 @@
-.header {
-  font-size: 32px;
-  display: flex;
-  justify-content: center;
-}
-  
-  .grid {
+.grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -35,4 +29,9 @@
     background-color: transparent;
     color: #fff;
     margin-top: 15px;
+  }
+  .nodatafound{
+    color: #ea3943;
+    margin: 30px 0 0 0;
+    font-size: 20px;
   }

@@ -40,11 +40,11 @@ function Crypto() {
       </thead>
       <tbody>
         {data.map((coin) => (
-          <tr id={coin.id} className={styles.tableRow}>
+          <tr key={coin.id} className={styles.tableRow}>
             <td>{coin.market_cap_rank}</td>
             <td>
               <div className={styles.logo}>
-                <img src={coin.image} width={40} height={40} /> {coin.name}
+                <img src={coin.image} alt={coin.symbol} width={40} height={40} /> {coin.name}
               </div>
             </td>
             <td>

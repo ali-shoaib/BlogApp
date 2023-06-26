@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const authController = require('../controller/authController');
 const auth = require('../middleware/auth');
+const blogController = require('../controller/blogController');
 
 //testing
 router.get('/test', (req, res) => res.send("Hello world 123"));
@@ -23,5 +24,17 @@ router.get('/allusers', authController.getAllUsers);
 
 //deleteAUser
 router.post('/deleteuser', authController.deleteUser);
+
+//getAllBlogs
+router.post('/blog/create', auth, blogController.create);
+
+//getAllBlogs
+router.get('/blog/all', auth, blogController.getAll);
+
+//DeleteABlogs
+router.post('/blog/delete', auth, blogController.delete);
+
+//BlogById
+router.get('/blog/:id', auth, blogController.getById);
 
 module.exports = router;

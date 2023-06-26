@@ -27,6 +27,8 @@ app.use('/', router);
 // connect to mongo
 dbConnect();
 
+app.use('/storage',express.static('storage'));
+
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

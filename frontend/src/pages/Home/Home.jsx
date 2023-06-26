@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getNews } from '../../api/external';
 import styles from "./Home.module.css";
 import Loader from '../../components/Loader/Loader';
+import Articles from '../../components/Articles/Articles';
 
 function Home() {
   const [articles,setArticles]=useState([]);
@@ -12,12 +13,8 @@ function Home() {
       setArticles(response);
     })()
 
-    setArticles([])
+    setArticles([]);
   },[])
-
-  const handleCardClick=(url)=>{
-    window.open(url,"_blank");
-  }
 
   if(articles.length === 0){
     return <Loader text="homepage"/>;
@@ -25,14 +22,15 @@ function Home() {
   return (
     <>
     <div className={styles.header}>Latest Articles</div>
-    <div className={styles.grid}>
+    {/* <div className={styles.grid}>
       {articles.map(ar => (
         <div className={styles.card} key={ar.url} onClick={() => handleCardClick(ar.url)}>
           <img src={ar.urlToImage}/>
           <h3>{ar.title}</h3>
         </div>
       ))}
-    </div>
+    </div> */}
+    <Articles articles={articles}/>
     </>
   )
 }
