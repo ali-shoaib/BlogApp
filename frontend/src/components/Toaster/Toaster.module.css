@@ -1,0 +1,16 @@
+.snackbar {
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #3fcf4b;
+    color: #1d1d1d;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 111;
+    right: 40px;
+    bottom: 30px;
+    font-size: 17px;
+    transition: all .2s ease-in;
+  }
+  

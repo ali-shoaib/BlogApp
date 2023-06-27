@@ -111,7 +111,6 @@ const blogController = {
   },
   async update(req, res, next) {
     // validate
-    //
 
     const updateBlogSchema = Joi.object({
       title: Joi.string().required(),
@@ -122,6 +121,10 @@ const blogController = {
     });
 
     const { error } = updateBlogSchema.validate(req.body);
+
+    if (error) {
+      return next(error);
+    }
 
     const { title, content, author, blogId, photo } = req.body;
 

@@ -44,3 +44,27 @@ export const signout = async (data) => {
 
   return response;
 };
+
+export const getBlogs = async (data) => {
+  let response;
+
+  try {
+    response = await api.get("blog/all", data);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+export const createBlog = async (data) => {
+  let response;
+
+  try {
+    response = await api.post("blog/create", data);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
