@@ -11,14 +11,15 @@
     background-color: black;
     border: 1px solid #fff;
     border-radius: 10px;
-    width: 80%;
-    padding: 16px;
-    margin: 40px 20px;
+    width: 400px;
+    max-width: 98%;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 16px 0 16px 0;
+    /* margin: 40px 20px; */
   }
   
   .blog img {
@@ -29,7 +30,7 @@
   
   .blog h1 {
     text-align: left;
-    margin: 15px 0;
+    margin: 10px 0 15px 0;
     background-color: transparent;
     color: #fff;
   }

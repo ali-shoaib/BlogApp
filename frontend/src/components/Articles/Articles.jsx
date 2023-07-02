@@ -4,8 +4,8 @@ import TextInput from '../../components/TextInput/TextInput';
 
 function SearchedArticles({data, handleCardClick}){
     if(data?.length > 0){
-        return data.map(ar => (
-            <div className={styles.card} key={ar.url} onClick={() => handleCardClick(ar.url)}>
+        return data.map((ar,index) => (
+            <div className={styles.card} key={index+Math.random().toFixed(4)} onClick={() => handleCardClick(ar.url)}>
               <img src={ar.urlToImage} alt={ar.title}/>
               <h3>{ar.title}</h3>
             </div>
@@ -47,7 +47,8 @@ function Articles({articles}) {
     />
     <div className={styles.grid}>
     {value ?
-    <SearchedArticles data={data} handleCardClick={handleCardClick}/>:
+    <SearchedArticles data={data} handleCardClick={handleCardClick}/>
+    :
     <SearchedArticles data={articles} handleCardClick={handleCardClick}/>
     }
     </div>

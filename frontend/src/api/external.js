@@ -12,7 +12,8 @@ export const getNews = async () => {
         response = response.data.articles.slice(0,15);
     }
     catch(err){
-        console.log(err);
+        response = err;
+        // console.log(err);
     }
 
     return response;
@@ -26,7 +27,8 @@ export const getCrypto = async() => {
         response = response.data;
     }
     catch(err){
-        console.log(err);
+        response = err;
+        // console.log(err);
     }
 
     return response;

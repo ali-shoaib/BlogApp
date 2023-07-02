@@ -2,30 +2,34 @@ import {useState,useEffect} from 'react'
 import { getCrypto } from '../../api/external';
 import Loader from '../../components/Loader/Loader';
 import styles from './Crypto.module.css';
+import Error from '../Error/Error';
 
 function Crypto() {
     const [data,setData]=useState([]);
 
     useEffect(() => {
-        // IIFE: immediately invoked function expression
-        (async function cryptoApiCall(){
-            const response = await getCrypto();
-            setData(response)
-        })()
+      // IIFE: immediately invoked function expression
+      (async function cryptoApiCall(){
+        const response = await getCrypto();
+        setData(response)
+      })()
 
-        setData([]);
+      setData([]);
     },[])
 
     if(data.length === 0){
-        return <Loader text="cryptocurrencies"/>
+      return <Loader text="cryptocurrencies"/>
+    }
+    else if(data.code){
+      return <Error errmessage={data.message}/>
     }
 
     const negativeStyle = {
-        color: "#ea3943",
+      color: "#ea3943",
     };
     
     const positiveStyle = {
-        color: "#16c784",
+      color: "#16c784",
     };
   return (
     <table className={styles.table}>

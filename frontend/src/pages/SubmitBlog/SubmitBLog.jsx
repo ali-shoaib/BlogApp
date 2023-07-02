@@ -74,7 +74,7 @@ function SubmitBLog() {
             onChange={getPhoto}
             />
         </div>
-        {photo !== "" ? <img src={photo} width={150} height={150} /> : null}
+        {photo !== "" ? <img src={photo} width={150} height={150} alt={title}/> : null}
       </div>
       <button
         className={styles.submit}

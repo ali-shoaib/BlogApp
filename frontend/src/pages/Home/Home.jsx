@@ -3,6 +3,7 @@ import { getNews } from '../../api/external';
 import styles from "./Home.module.css";
 import Loader from '../../components/Loader/Loader';
 import Articles from '../../components/Articles/Articles';
+import Error from '../Error/Error';
 
 function Home() {
   const [articles,setArticles]=useState([]);
@@ -19,6 +20,10 @@ function Home() {
   if(articles.length === 0){
     return <Loader text="homepage"/>;
   }
+  else if(articles.code){
+    return <Error errmessage={articles.message}/>
+  }
+  
   return (
     <>
     <div className={styles.header}>Latest Articles</div>

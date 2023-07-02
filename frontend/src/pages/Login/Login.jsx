@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "./Login.module.css";
 import TextInput from "../../components/TextInput/TextInput";
 import loginSchema from "../../schemas/loginSchema";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import {login} from '../../api/internal';
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
+import {RotatingLines} from 'react-loader-spinner';
 
 function Login() {
     const navigate = useNavigate();
@@ -14,33 +15,40 @@ function Login() {
     const dispatch = useDispatch();
 
     const [error, setError] = React.useState("");
+    const [isLoading,setIsLoading] = useState(false);
 
     const handleLogin = async () => {
-        const data = {
-          username: values.username,
-          password: values.password,
-        };
-    
-        const response = await login(data);
-    
-        if (response.status === 200) {
-            // 1. setUser
-            const user = {
-                _id: response.data.user._id,
-                email: response.data.user.email,
-                username: response.data.user.username,
-                auth: response.data.auth,
-            };
-            console.log("response => ",response);
-    
-            dispatch(setUser(user));
-            // 2. redirect -> homepage
-            navigate("/");
-        } 
-        else if (response.code) {
-            // display error message
-            setError(response.response.statusText);
-        }
+      setIsLoading(true);
+
+      const data = {
+        username: values.username,
+        password: values.password,
+      };
+  
+      const response = await login(data);
+  
+      if (response.status === 200) {
+          // 1. setUser
+          const user = {
+              _id: response.data.user._id,
+              email: response.data.user.email,
+              username: response.data.user.username,
+              auth: response.data.auth,
+          };
+          console.log("response => ",response);
+  
+          dispatch(setUser(user));
+
+          setIsLoading(false);
+          // 2. redirect -> homepage
+          navigate("/");
+      } 
+      else if (response.code) {
+          // display error message
+          setError(response.response.statusText);
+
+          setIsLoading(false);
+      }
     };
     
     const { values, touched, handleBlur, handleChange, errors } = useFormik({
@@ -77,15 +85,27 @@ function Login() {
       />
       <button
         className={styles.logInButton}
-        // disabled={
-        //   !values.username ||
-        //   !values.password ||
-        //   errors.username ||
-        //   errors.password
-        // }
+        disabled={
+          !values.username ||
+          !values.password
+        }
         onClick={handleLogin}
       >
         Log In
+        {isLoading ? 
+          <span className={styles.loader}>
+          <RotatingLines
+            height="35" 
+            width="35"
+            radius="9"
+            strokeColor='maroon'
+            strokeWidth="5"
+            animationDuration="0.75"
+            visible={true}
+          />
+          </span>
+          :
+        null}
       </button>
       <span>
         Don't have an account?{" "}

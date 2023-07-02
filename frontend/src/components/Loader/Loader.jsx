@@ -7,7 +7,7 @@ function Loader({text}) {
         <h2>Loading {text}...</h2>
         <ThreeDots 
         height="80" 
-        width="80" 
+        width="80"
         radius="9"
         color="#89CFF0" 
         ariaLabel="three-dots-loading"
