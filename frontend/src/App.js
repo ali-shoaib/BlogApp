@@ -13,22 +13,27 @@ import Blog from './pages/Blog/Blog';
 import SubmitBLog from './pages/SubmitBlog/SubmitBLog';
 import BlogDetails from './pages/BlogDetails/BlogDetails';
 import UpdateBlog from './pages/UpdateBlog/UpdateBlog';
+import useAutoLogin from './hooks/useAutoLogin';
+import Loader from './components/Loader/Loader';
+import UserInfo from './pages/UserInfo/UserInfo';
 
 function App() {
   const isAuth = useSelector(state => state.user.auth);
-  return (
+
+  const loading = useAutoLogin();
+
+  return loading ?
+  (<Loader text="..." />):
+  (
     <div className={style.container}>
       <BrowserRouter>
       <div className={style.layout}>
         <Navbar/>
         <Routes>
           <Route 
-            path='/' 
+            path='/'
             exact 
-            element={<div className={style.main}>
-              <Home/>
-              </div>
-            }
+            element={<div className={style.main}><Home/></div>}
           />
 
           <Route
@@ -90,6 +95,12 @@ function App() {
           />
 
           <Route
+            path='user-info'
+            exact
+            element={<Protected isAuth={isAuth}><div className={style.main}><UserInfo /></div></Protected>} 
+          />
+
+          <Route
             path='*'
             element={<Error errmessage="Error 404 - Page not found"/>}
           />
@@ -98,7 +109,7 @@ function App() {
       </div>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
 export default App;

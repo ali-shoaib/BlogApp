@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import styles from "./BlogDetails.module.css";
 import CommentList from "../../components/CommentList/CommentList";
+import Error from "../Error/Error";
 
 function BlogDetails() {
   const [blog, setBlog] = useState([]);
@@ -18,6 +19,7 @@ function BlogDetails() {
   const [ownsBlog, setOwnsBlog] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [reload, setReload] = useState(false);
+  const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,6 +41,9 @@ function BlogDetails() {
         // set ownership
         setOwnsBlog(username === blogResponse.data.blog.authorUsername);
         setBlog(blogResponse.data.blog);
+      }
+      else{
+        setBlog(blogResponse);
       }
     }
     getBlogDetails();
@@ -70,38 +75,45 @@ function BlogDetails() {
   if (blog.length === 0) {
     return <Loader text="blog details" />;
   }
+  else if(blog.code){
+    return <Error errmessage={blog.message}/>
+  }
+
+  function showDate(date){
+    return new Date(date).toLocaleDateString('en-US', { weekday: "long", year: 'numeric', month: 'long', day: 'numeric' });
+  }
 
   return (
     <div className={styles.detailsWrapper}>
       <div className={styles.left}>
+        {ownsBlog && <button onClick={()=>setShow(!show)} className={styles.options}>...</button>}
+        {show && (
+          <div className={styles.optionlist}>
+            <button
+              className={styles.editButton}
+              onClick={() => {
+                navigate(`/blog-update/${blog._id}`);
+              }}
+            >Edit</button>
+            <button
+              className={styles.deleteButton}
+              onClick={deleteBlogHandler}
+            >Delete</button>
+          </div>        
+        )}
         <h1 className={styles.title}>{blog.title}</h1>
         <div className={styles.meta}>
           <p>
             @
             {blog.authorUsername +
               " on " +
-              new Date(blog.createdAt).toDateString()}
+              showDate(blog.createdAt)}
           </p>
         </div>
         <div className={styles.photo}>
           <img src={blog.photo} width={250} height={250} />
         </div>
         <p className={styles.content}>{blog.content}</p>
-        {ownsBlog && (
-          <div className={styles.controls}>
-            <button
-              className={styles.editButton}
-              onClick={() => {
-                navigate(`/blog-update/${blog._id}`);
-              }}
-            >
-              Edit
-            </button>
-            <button className={styles.deleteButton} onClick={deleteBlogHandler}>
-              Delete
-            </button>
-          </div>
-        )}
       </div>
       <div className={styles.right}>
         <div className={styles.commentsWrapper}>

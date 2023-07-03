@@ -28,36 +28,37 @@ function Login() {
       const response = await login(data);
   
       if (response.status === 200) {
-          // 1. setUser
-          const user = {
-              _id: response.data.user._id,
-              email: response.data.user.email,
-              username: response.data.user.username,
-              auth: response.data.auth,
-          };
-          console.log("response => ",response);
-  
-          dispatch(setUser(user));
+        // 1. setUser
+        const user = {
+            _id: response.data.user._id,
+            email: response.data.user.email,
+            username: response.data.user.username,
+            name: response.data.user.name,
+            auth: response.data.auth,
+            createdAt: response.data.user.createdAt
+        };
 
-          setIsLoading(false);
-          // 2. redirect -> homepage
-          navigate("/");
+        dispatch(setUser(user));
+
+        setIsLoading(false);
+        // 2. redirect -> homepage
+        navigate("/");
       } 
       else if (response.code) {
-          // display error message
-          setError(response.response.statusText);
+        // display error message
+        setError(response.response.statusText);
 
-          setIsLoading(false);
+        setIsLoading(false);
       }
     };
     
     const { values, touched, handleBlur, handleChange, errors } = useFormik({
-        initialValues: {
-          username: "",
-          password: "",
-        },
-    
-        validationSchema: loginSchema,
+      initialValues: {
+        username: "",
+        password: "",
+      },
+  
+      validationSchema: loginSchema,
     });
 
   return (

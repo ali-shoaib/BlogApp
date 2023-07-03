@@ -8,6 +8,7 @@ import { resetUser } from '../../store/userSlice';
 function Navbar() {
     const isAuthenticated = useSelector((state) => state.user.auth);
     const dispatch=useDispatch();
+    const username = useSelector((state) => state.user.name).split(' ')[0];
 
     const handleSignOut = async() => {
       await signout();
@@ -16,7 +17,7 @@ function Navbar() {
   return (
     <>
     <nav className={style.navbar}>
-      <NavLink className={`${style.logo} ${style.inActiveStyle}`}>CoinBounce</NavLink>
+      <NavLink to="/" className={style.logo}>CoinBounce</NavLink>
       <NavLink to='/' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}>Home</NavLink>
       <NavLink to='crypto' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}>Cryptocurrencies</NavLink>
       <NavLink to='blogs' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}>Blogs</NavLink>
@@ -29,6 +30,7 @@ function Navbar() {
         <NavLink to='signup' className={({isActive}) => isActive ? style.activeStyle : style.inActiveStyle}><button className={style.signUpButton}>SignUp</button></NavLink>
       </>
       }
+      {username ? <NavLink to='user-info'><button className={style.username}> Hey, {username}</button></NavLink>:null}
     </nav>
     <div className={style.separator}></div>
     </>

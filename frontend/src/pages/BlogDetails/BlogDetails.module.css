@@ -1,9 +1,9 @@
 .detailsWrapper {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     gap: 50px;
-    margin: 10px 50px;
+    margin: 0 50px;
   }
   
   .left {
@@ -12,7 +12,7 @@
     width: 40%;
     justify-content: space-evenly;
     align-items: center;
-    padding: 25px 0;
+    position: relative;
   }
   
   .meta {
@@ -44,7 +44,6 @@
   }
   
   .editButton {
-    margin-left: 10px;
     background-color: #16c784;
     color: #fff;
     border: none;
@@ -61,7 +60,6 @@
   }
   
   .deleteButton {
-    margin-left: 10px;
     background-color: #ea3943;
     color: #fff;
     border: none;
@@ -109,4 +107,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .options{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    width: 0;
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    transform: rotate(90deg);
+    cursor: pointer;
+  }
+  .optionlist{
+    position: absolute;
+    right: 0;
+    top: 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import styles from "./Comment.module.css";
 
 function Comment({ comment }) {
-    const date = new Date(comment.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const date = new Date(comment.createdAt).toLocaleDateString('en-US', { weekday: "long", year: 'numeric', month: 'long', day: 'numeric' });
     // toLocaleDateString
   return (
     <div className={styles.comment}>

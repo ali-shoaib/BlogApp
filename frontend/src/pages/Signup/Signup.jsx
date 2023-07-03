@@ -7,13 +7,17 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
+import {RotatingLines} from 'react-loader-spinner';
 
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
+  const [isLoading,setIsLoading] = useState(false);
 
   const handleSignup = async () => {
+    setIsLoading(true);
+
     const data = {
       name: values.name,
       username: values.username,
@@ -25,18 +29,9 @@ function Signup() {
     const response = await signup(data);
 
     if (response.status === 201) {
-      // setUser
-      const user = {
-        _id: response.data.user._id,
-        email: response.data.user.email,
-        username: response.data.user.username,
-        auth: response.data.auth,
-      };
-
-      dispatch(setUser(user));
-
+      setIsLoading(false);
       // redirect homepage
-      navigate("/");
+      navigate("/login");
     } else if (response.code) {
       // display error message
       setError(response.response.statusText);
@@ -123,15 +118,24 @@ function Signup() {
           !values.password ||
           !values.name ||
           !values.confirmPassword ||
-          !values.email ||
-          errors.username ||
-          errors.password ||
-          errors.confirmPassword ||
-          errors.name ||
-          errors.email
+          !values.email
         }
       >
         Sign Up
+        {isLoading ? 
+          <span className={styles.loader}>
+          <RotatingLines
+            height="35" 
+            width="35"
+            radius="9"
+            strokeColor='maroon'
+            strokeWidth="5"
+            animationDuration="0.75"
+            visible={true}
+          />
+          </span>
+          :
+        null}
       </button>
 
       <span>

@@ -75,7 +75,7 @@ export const getBlogById = async (id) => {
   try {
     response = await api.get(`blog/${id}`);
   } catch (error) {
-    return error;
+    response = error;
   }
 
   return response;
