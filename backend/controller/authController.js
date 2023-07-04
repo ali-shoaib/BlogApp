@@ -169,6 +169,83 @@ const authController={
 
         return res.status(200).json({user:userDto, auth:true});
     },
+    async resetPassword(req,res,next){
+        const resetPasswordSchema = Joi.object({
+            username: Joi.string().min(6).max(30).required(),
+            currentPassword: Joi.string().pattern(passwordPattern).required(),
+            newPassword: Joi.string().pattern(passwordPattern).required(),
+            confirmPassword: Joi.ref('newPassword'),
+        })
+
+        const {error} = resetPasswordSchema.validate(req.body);
+
+        if(error){
+            return next(error);
+        }
+
+        const { username, currentPassword, newPassword, confirmPassword } = req.body;
+
+        let user;
+        try {
+            user = await User.findOne({username});
+
+            if (user) {
+                const match = await bcrypt.compare(currentPassword, user.password);
+
+                if(!match){
+                    const error = {
+                        status:401,
+                        message:'Invalid Password'
+                    }
+                    
+                    return next(error);
+                }
+
+                const newmatch = await bcrypt.compare(newPassword, confirmPassword);
+
+                if(newmatch){
+                    const error = {
+                        status:401,
+                        message:"New passwords do not match"
+                    }
+                    return next(error);
+                }
+
+                const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+                await User.updateOne(
+                    {_id:user._id},
+                    {password:hashedPassword}
+                )
+
+                // 1. delete refresh token from db
+                const { refreshToken } = req.cookies;
+
+                try {
+                await RefreshToken.deleteOne({ token: refreshToken });
+                } catch (error) {
+                return next(error);
+                }
+
+                // delete cookies
+                res.clearCookie("accessToken");
+                res.clearCookie("refreshToken");
+            }
+            else{
+                const error = {
+                    status: 401,
+                    message: "Invalid username",
+                };
+          
+                return next(error);
+            }
+        
+        } catch (error) {
+            return next(error);
+        }
+
+        return res.status(200).json({user, message:"Password has been reset."});
+    },
     async logout(req,res,next){
         // 1. delete refresh token from db
         const { refreshToken } = req.cookies;

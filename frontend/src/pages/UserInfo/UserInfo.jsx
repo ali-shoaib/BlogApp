@@ -1,13 +1,11 @@
 import React from 'react'
 import {useSelector} from 'react-redux';
 import style from './UserInfo.module.css';
+import { NavLink } from 'react-router-dom';
+import { showDate } from '../../reusable/showDate';
 
 function UserInfo() {
     const userinfo = useSelector((state) => state.user);
-
-    function showDate(date){
-        return new Date(date).toLocaleDateString('en-US', { weekday: "long", year: 'numeric', month: 'long', day: 'numeric' });
-    }
   return (
     <div className={style.userinfowrapper}>
         <h2 className={style.name}>{userinfo.name}</h2>
@@ -16,7 +14,7 @@ function UserInfo() {
             <span>Email: <b>{userinfo.email}</b></span>
             <span>Joined on: <b>{showDate(userinfo.createdAt)}</b></span>
         </div>
-        <button className={style.changepassword}>Change Password</button>
+        <NavLink to="/reset-password"><button className={style.changepassword}>Change Password</button></NavLink>
     </div>
   )
 }

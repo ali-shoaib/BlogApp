@@ -16,6 +16,7 @@ import UpdateBlog from './pages/UpdateBlog/UpdateBlog';
 import useAutoLogin from './hooks/useAutoLogin';
 import Loader from './components/Loader/Loader';
 import UserInfo from './pages/UserInfo/UserInfo';
+import ChangePassword from './pages/ChangePassword/ChangePassword';
 
 function App() {
   const isAuth = useSelector(state => state.user.auth);
@@ -98,6 +99,12 @@ function App() {
             path='user-info'
             exact
             element={<Protected isAuth={isAuth}><div className={style.main}><UserInfo /></div></Protected>} 
+          />
+
+          <Route
+            path='reset-password'
+            exact
+            element={<Protected isAuth={isAuth}><div className={style.main}><ChangePassword /></div></Protected>} 
           />
 
           <Route

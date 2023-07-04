@@ -12,6 +12,7 @@ import Loader from "../../components/Loader/Loader";
 import styles from "./BlogDetails.module.css";
 import CommentList from "../../components/CommentList/CommentList";
 import Error from "../Error/Error";
+import { showDate } from "../../reusable/showDate";
 
 function BlogDetails() {
   const [blog, setBlog] = useState([]);
@@ -77,10 +78,6 @@ function BlogDetails() {
   }
   else if(blog.code){
     return <Error errmessage={blog.message}/>
-  }
-
-  function showDate(date){
-    return new Date(date).toLocaleDateString('en-US', { weekday: "long", year: 'numeric', month: 'long', day: 'numeric' });
   }
 
   return (

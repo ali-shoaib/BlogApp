@@ -126,3 +126,15 @@ export const updateBlog = async (data) => {
   }
   return response;
 };
+
+export const resetPassword = async (data) => {
+  let response;
+
+  try {
+    response = await api.post("reset-password", data);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};

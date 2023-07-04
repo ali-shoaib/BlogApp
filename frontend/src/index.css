@@ -4,3 +4,12 @@
   background-color: #292929;
   color: #fff;
 }
+.loader{
+  background: transparent;
+  position: absolute;
+  left: 15px;
+  bottom: 4px;
+}
+.loader > *{
+  background: transparent;
+}

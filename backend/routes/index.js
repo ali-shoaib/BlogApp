@@ -14,6 +14,9 @@ router.post('/login', authController.login);
 //register
 router.post('/register', authController.register);
 
+//change password
+router.post('/reset-password', auth, authController.resetPassword);
+
 //logout
 router.post('/logout', auth ,authController.logout);
 
