@@ -6,6 +6,8 @@ import {
   deleteBlog,
   postComment,
   getCommentsById,
+  like,
+  getLikesById,
 } from "../../api/internal";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
@@ -13,6 +15,8 @@ import styles from "./BlogDetails.module.css";
 import CommentList from "../../components/CommentList/CommentList";
 import Error from "../Error/Error";
 import { showDate } from "../../reusable/showDate";
+import likeicon from '../../assets/images/like.png'
+import unlikeicon from '../../assets/images/unlike.png'
 
 function BlogDetails() {
   const [blog, setBlog] = useState([]);
@@ -21,6 +25,8 @@ function BlogDetails() {
   const [newComment, setNewComment] = useState("");
   const [reload, setReload] = useState(false);
   const [show, setShow] = useState(false);
+  const [likes,setLikes] = useState([]);
+  const [showLike,setShowLike] = useState(false);
 
   const navigate = useNavigate();
 
@@ -32,6 +38,23 @@ function BlogDetails() {
 
   useEffect(() => {
     async function getBlogDetails() {
+      const likeResponse = await getLikesById(blogId);
+      if (likeResponse.status === 200) {
+        setLikes(likeResponse?.data?.data);
+
+        // for(let i=0; i<likes.length; i++){
+        //   if(likes[i].authorid === userId){
+        //     setShowLike(true);
+        //   }
+        // }
+        // likes.forEach(x => {
+        //   if(x.authorid === userId){
+        //     setShowLike(true)
+        //   }
+        // })
+        console.info("likes => ",likes);
+      }
+
       const commentResponse = await getCommentsById(blogId);
       if (commentResponse.status === 200) {
         setComments(commentResponse.data.data);
@@ -49,6 +72,7 @@ function BlogDetails() {
     }
     getBlogDetails();
   }, [reload]);
+
 
   const postCommentHandler = async () => {
     const data = {
@@ -116,6 +140,9 @@ function BlogDetails() {
         <div className={styles.commentsWrapper}>
           <CommentList comments={comments} />
           <div className={styles.postComment}>
+            <button>
+              <img src={showLike === true ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>
+            </button>
             <input
               className={styles.input}
               placeholder="comment goes here..."

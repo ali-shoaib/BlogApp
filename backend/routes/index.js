@@ -4,6 +4,7 @@ const authController = require('../controller/authController');
 const auth = require('../middleware/auth');
 const blogController = require('../controller/blogController');
 const commentController = require('../controller/commentController');
+const likeController = require('../controller/likeController');
 
 //testing
 router.get('/test', (req, res) => res.send("Hello world 123"));
@@ -47,7 +48,13 @@ router.put('/blog/update', auth, blogController.update);
 // CreateComment
 router.post('/comment/create', auth, commentController.create);
 
-// GetCommentById
+// GetCommentsById
 router.get('/comment/:id', auth, commentController.getById);
+
+//Like
+router.post('/like', auth, likeController.create);
+
+// GetLikesById
+router.get('/like/:id', auth, likeController.getById);
 
 module.exports = router;

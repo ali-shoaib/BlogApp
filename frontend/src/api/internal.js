@@ -138,3 +138,27 @@ export const resetPassword = async (data) => {
 
   return response;
 };
+
+export const like = async (data) => {
+  let response;
+
+  try {
+    response = await api.post("like", data);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+export const getLikesById = async (id) => {
+  let response;
+
+  try {
+    response = await api.get(`like/${id}`);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
