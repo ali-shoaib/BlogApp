@@ -5,6 +5,8 @@ class BlogDTO{
         this.content = blog.content;
         this.title = blog.title;
         this.photo = blog.photoPath;
+        this.likesCount = blog.likesCount
+        this.commentsCount = blog.commentsCount
     }
 }
 

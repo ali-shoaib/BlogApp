@@ -37,41 +37,45 @@ function BlogDetails() {
   const userId = useSelector((state) => state.user._id);
 
   useEffect(() => {
-    async function getBlogDetails() {
-      const likeResponse = await getLikesById(blogId);
-      if (likeResponse.status === 200) {
-        setLikes(likeResponse?.data?.data);
-
-        // for(let i=0; i<likes.length; i++){
-        //   if(likes[i].authorid === userId){
-        //     setShowLike(true);
-        //   }
-        // }
-        // likes.forEach(x => {
-        //   if(x.authorid === userId){
-        //     setShowLike(true)
-        //   }
-        // })
-        console.info("likes => ",likes);
-      }
-
-      const commentResponse = await getCommentsById(blogId);
-      if (commentResponse.status === 200) {
-        setComments(commentResponse.data.data);
-      }
-
-      const blogResponse = await getBlogById(blogId);
-      if (blogResponse.status === 200) {
-        // set ownership
-        setOwnsBlog(username === blogResponse.data.blog.authorUsername);
-        setBlog(blogResponse.data.blog);
-      }
-      else{
-        setBlog(blogResponse);
-      }
-    }
     getBlogDetails();
   }, [reload]);
+
+  async function getBlogDetails() {
+    const likeResponse = await getLikesById(blogId);
+    if (likeResponse.status === 200) {
+
+      const data = likeResponse?.data?.data;
+
+      // for(let i=0; i<likes.length; i++){
+      //   if(likes[i].authorid === userId){
+      //     setShowLike(true);
+      //   }
+      // }
+      data.forEach(x => {
+        if(x.authorid === userId && x.like){
+          setShowLike(true)
+        }
+      })
+
+      setLikes(data);
+      console.info("likes => ",data);
+    }
+
+    const commentResponse = await getCommentsById(blogId);
+    if (commentResponse.status === 200) {
+      setComments(commentResponse.data.data);
+    }
+
+    const blogResponse = await getBlogById(blogId);
+    if (blogResponse.status === 200) {
+      // set ownership
+      setOwnsBlog(username === blogResponse.data.blog.authorUsername);
+      setBlog(blogResponse.data.blog);
+    }
+    else{
+      setBlog(blogResponse);
+    }
+  }
 
 
   const postCommentHandler = async () => {
@@ -88,6 +92,21 @@ function BlogDetails() {
       setReload(!reload);
     }
   };
+
+  const likeHandler = async () => {
+    setShowLike(!showLike);
+    const data = {
+      like:!showLike,
+      author: userId,
+      blog: blogId,
+    }
+
+    const response = await like(data);
+
+    if (response.status === 201) {
+      setReload(!reload);
+    }
+  }
 
   const deleteBlogHandler = async () => {
     const response = await deleteBlog(blogId);
@@ -140,8 +159,8 @@ function BlogDetails() {
         <div className={styles.commentsWrapper}>
           <CommentList comments={comments} />
           <div className={styles.postComment}>
-            <button>
-              <img src={showLike === true ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>
+            <button className={styles.likebutton} onClick={likeHandler}>
+              <img src={showLike===true ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>
             </button>
             <input
               className={styles.input}

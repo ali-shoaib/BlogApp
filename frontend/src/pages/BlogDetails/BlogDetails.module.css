@@ -132,6 +132,14 @@
     background: #fff;
     border-radius: 10px;
   }
+  .likebutton{
+    border-radius: 10px;
+    background: #fff;
+    border:none;
+    width: 40px;
+    cursor: pointer;
+  }
   .like{
-    width: 30px;
+    background: transparent;
+    width: 100%;
   }

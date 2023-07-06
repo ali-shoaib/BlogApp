@@ -5,6 +5,8 @@ const BlogDTO = require("../dto/blog");
 const BlogDetailsDTO = require("../dto/blog-details");
 const Comment = require("../models/comment");
 const { BACKEND_SERVER_PATH } = require("../config");
+const Like = require('../models/like');
+const LikeDTO = require('../dto/like');
 
 const mongodbIdPattern = /^[0-9a-fA-F]{24}$/;
 
@@ -73,6 +75,8 @@ const blogController = {
 
       for (let i = 0; i < blogs.length; i++) {
         const dto = new BlogDTO(blogs[i]);
+        dto.likesCount = await LikesCountMehod(blogs[i]._id);
+        dto.commentsCount = await CommentsCountMehod(blogs[i]._id)
         blogsDto.push(dto);
       }
 
@@ -208,5 +212,41 @@ const blogController = {
     return res.status(200).json({ message: "blog deleted" });
   },
 };
+
+async function LikesCountMehod(blog){
+  try{
+    let likes = await Like.find({});
+
+    const likesDto = [];
+    for (let i = 0; i < likes.length; i++) {
+      if(likes[i].blog.toString() === blog.toString() && likes[i].like){
+        const dto = new LikeDTO(likes[i]);
+        likesDto.push(dto);
+      }
+    }
+    return likesDto.length;
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+
+async function CommentsCountMehod(blog){
+  try{
+    let com = await Comment.find({});
+
+    const commentsDto = [];
+    for (let i = 0; i < com.length; i++) {
+      if(com[i].blog.toString() === blog.toString()){
+        // const dto = new LikeDTO(com[i]);
+        commentsDto.push(com[i]);
+      }
+    }
+    return commentsDto.length;
+  }
+  catch(err){
+    console.log(err);
+  }
+}
 
 module.exports = blogController;

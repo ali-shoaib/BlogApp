@@ -23,15 +23,16 @@ function App() {
 
   const loading = useAutoLogin();
 
-  return loading ?
-  (<Loader text="..." />):
-  (
+  return(
     <div className={style.container}>
       <BrowserRouter>
       <div className={style.layout}>
         <Navbar/>
+        {loading ?
+          <Loader />
+        :
         <Routes>
-          <Route 
+          <Route
             path='/'
             exact 
             element={<div className={style.main}><Home/></div>}
@@ -112,6 +113,7 @@ function App() {
             element={<Error errmessage="Error 404 - Page not found"/>}
           />
         </Routes>
+        }
         <Footer/>
       </div>
       </BrowserRouter>
