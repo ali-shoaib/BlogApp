@@ -238,8 +238,7 @@ async function CommentsCountMehod(blog){
     const commentsDto = [];
     for (let i = 0; i < com.length; i++) {
       if(com[i].blog.toString() === blog.toString()){
-        // const dto = new LikeDTO(com[i]);
-        commentsDto.push(com[i]);
+        commentsDto.push(com[i].blog);
       }
     }
     return commentsDto.length;

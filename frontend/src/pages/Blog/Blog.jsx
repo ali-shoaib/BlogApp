@@ -39,19 +39,21 @@ function Blog() {
           onClick={() => navigate(`/blog/${blog._id}`)}
         >
           <h1>{blog.title}</h1>
-          <img className={styles.photo} src={blog.photo} />
+          <img className={styles.photo} src={blog.photo} alt={blog.title} />
           <p>{blog.content}</p>
-          <div className={styles.likebutton}>
-            <button>
-              <img src={unlikeicon} alt='like_button'/>
-            </button>
-            <span>{blog.likesCount}</span>
-          </div>
-          <div className={styles.commentbutton}>
-            <span>{blog.commentsCount}</span>
-            <button>
-              <img src={commenticon} alt='comment_button'/>
-            </button>
+          <div className={styles.activityWrapper}>
+            <div className={styles.likebutton}>
+              <button>
+                <img src={unlikeicon} alt='like_button'/>
+              </button>
+              <span>{blog.likesCount}</span>
+            </div>
+            <div className={styles.commentbutton}>
+              <span>{blog.commentsCount}</span>
+              <button>
+                <img src={commenticon} alt='comment_button'/>
+              </button>
+            </div>
           </div>
         </div>
       ))}

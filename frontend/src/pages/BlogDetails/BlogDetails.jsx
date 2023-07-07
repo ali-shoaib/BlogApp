@@ -58,7 +58,6 @@ function BlogDetails() {
       })
 
       setLikes(data);
-      console.info("likes => ",data);
     }
 
     const commentResponse = await getCommentsById(blogId);

@@ -10,7 +10,7 @@
   .blog {
     background-color: black;
     border: 1px solid #fff;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 400px;
     max-width: 98%;
     cursor: pointer;
@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px 0 16px 0;
+    padding: 16px 0 0 0;
     /* margin: 40px 20px; */
     position: relative;
   }
@@ -46,9 +46,6 @@
   }
   .likebutton{
     width: 45px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
     display: flex;
     align-items: center;
     border-radius: 0 0 0 10px;
@@ -73,11 +70,7 @@
     width: 100%;
   }
   .commentbutton{
-    border-radius: 0 0 10px 0;
     width: 45px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
     display: flex;
     align-items: center;
     background: #fff;
@@ -92,7 +85,6 @@
     height: 27px;
   }
   .commentbutton button{
-    border-radius: 0 0 10px 0;
     background: #fff;
     border:none;
     width: 100%;
@@ -100,4 +92,13 @@
   .commentbutton img{
     background: transparent;
     width: 100%;
+  }
+  .activityWrapper{
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0 0 0;
+    border-radius: 0 0 10px 10px;
+    padding: 5px 0 4px 0;
   }
