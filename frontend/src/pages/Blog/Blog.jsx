@@ -1,17 +1,19 @@
 import React,{ useState, useEffect } from 'react';
 import Loader from '../../components/Loader/Loader';
-import { getBlogs } from "../../api/internal";
+import { getBlogs, getAllAuthorsWhoLiked } from "../../api/internal";
 import styles from "./Blog.module.css";
 import { useNavigate } from "react-router-dom";
 import likeicon from '../../assets/images/like.png'
 import unlikeicon from '../../assets/images/unlike.png'
 import commenticon from '../../assets/images/commenticon.png'
 import Error from "../Error/Error";
+import AuthorsList from '../../components/AuthorsList/AuthorsList';
 
 function Blog() {
   const navigate = useNavigate();
 
   const [blogs, setBlogs] = useState([]);
+  const [authors, setAuthors] = useState([]);
 
   useEffect(() => {
     (async function getAllBlogsApiCall() {
@@ -24,6 +26,20 @@ function Blog() {
 
     setBlogs([]);
   }, []);
+
+  const getAllAuthors = async(blogid) => {
+
+    let body={
+      blog: blogid
+    }
+
+    const response = await getAllAuthorsWhoLiked(body);
+
+    if(response.status === 200){
+      setAuthors(response.data?.authors);
+    }
+  }
+
   if (blogs.length === 0) {
     return <Loader text="blogs" />;
   }
@@ -38,6 +54,7 @@ function Blog() {
           className={styles.blog}
           onClick={() => navigate(`/blog/${blog._id}`)}
         >
+          {authors.length !== 0 && blog._id === authors[0].blog && <AuthorsList authors={authors}/>}
           <h1>{blog.title}</h1>
           <img className={styles.photo} src={blog.photo} alt={blog.title} />
           <p>{blog.content}</p>
@@ -46,7 +63,7 @@ function Blog() {
               <button>
                 <img src={unlikeicon} alt='like_button'/>
               </button>
-              <span>{blog.likesCount}</span>
+              <span onMouseEnter={() => getAllAuthors(blog._id)} onMouseLeave={() => setAuthors([])}>{blog.likesCount}</span>
             </div>
             <div className={styles.commentbutton}>
               <span>{blog.commentsCount}</span>

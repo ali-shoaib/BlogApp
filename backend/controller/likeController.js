@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const Like = require('../models/like');
 const LikeDTO = require('../dto/like');
+const User = require('../models/user');
 
 const mongodbIdPattern = /^[0-9a-fA-F]{24}$/;
 
@@ -31,12 +32,9 @@ const likeController = {
         let newLike;
         if(com.length > 0){
             try{
-                newLike = await Like.updateOne(
+                newLike = await Like.deleteOne(
                     {
                         blog,author
-                    },
-                    {
-                        like
                     }
                 )    
             }
@@ -57,7 +55,7 @@ const likeController = {
             }
         }
 
-        return res.status(201).json({message: "liked!"});
+        return res.status(201).json({message: "liked done!"});
     },
     async getById(req, res, next){
         const getByIdSchema = Joi.object({
@@ -89,6 +87,35 @@ const likeController = {
         }
 
         return res.status(200).json({data: likesDto});
+    },
+    async deleteAll(req, res, next){
+        try{
+            let like = await Like.deleteMany({});
+
+            return res.status(200).json({data: like});
+        }
+        catch(err){
+            next(err);
+        }
+    },
+    async allAuthors(req, res, next){
+        try{
+            const {blog} = req.body;
+
+            const likes = await Like.find({blog:blog});
+
+            const users = await User.find({_id: likes.map(x => {return x.author})});
+
+            let onlyAuthors = [];
+            for (let j=0; j < users.length; j++){
+                onlyAuthors.push({_id: users[j]?._id, name: users[j]?.name, blog:blog});
+            }
+
+            return res.status(200).json({authors: onlyAuthors});
+        }
+        catch(err){
+            next(err);
+        }
     }
 }
 

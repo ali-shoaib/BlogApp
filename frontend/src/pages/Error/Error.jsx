@@ -6,12 +6,16 @@ function Error({errmessage}) {
   return (
     <div className={styles.errorWrapper}>
       <div className={styles.errorHeader}>{errmessage}</div>
+      {errmessage !== 'Network Error' ?
       <div className={styles.errorBody}>
         Go back to
         <Link to="/" className={styles.homeLink}>
           home
         </Link>
       </div>
+      :
+      null
+      }
     </div>  
     )
 }

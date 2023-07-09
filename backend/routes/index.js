@@ -57,4 +57,10 @@ router.post('/like', auth, likeController.create);
 // GetLikesById
 router.get('/like/:id', auth, likeController.getById);
 
+//DeleteAllLikes
+router.get('/like/deleteAll', auth, likeController.deleteAll);
+
+//getAllAuthorsWhoLiked
+router.post('/like/authors', auth, likeController.allAuthors);
+
 module.exports = router;

@@ -162,3 +162,15 @@ export const getLikesById = async (id) => {
 
   return response;
 };
+
+export const getAllAuthorsWhoLiked = async (body) => {
+  let response;
+
+  try {
+    response = await api.post(`like/authors`,body);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
