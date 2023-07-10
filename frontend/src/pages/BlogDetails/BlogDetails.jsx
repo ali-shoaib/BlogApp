@@ -140,40 +140,32 @@ function BlogDetails() {
             >Delete</button>
           </div>        
         )}
-        <h1 className={styles.title}>{blog.title}</h1>
-        <div className={styles.meta}>
-          <p>
-            @
-            {blog.authorUsername +
-              " on " +
-              showDate(blog.createdAt)}
-          </p>
-        </div>
+        <p className={styles.postInfo}>@{blog.authorUsername}</p>
+        <p className={styles.postInfo}>{showDate(blog.createdAt)}</p>
         <div className={styles.photo}>
-          <img src={blog.photo} width={250} height={250} />
+          <img src={blog.photo} width={350} height={350} />
         </div>
+        <h1 className={styles.title}>{blog.title}</h1>
         <p className={styles.content}>{blog.content}</p>
       </div>
       <div className={styles.right}>
-        <div className={styles.commentsWrapper}>
-          <CommentList comments={comments} />
-          <div className={styles.postComment}>
-            <button className={styles.likebutton} onClick={likeHandler}>
-              <img src={showLike===true ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>
-            </button>
-            <input
-              className={styles.input}
-              placeholder="comment goes here..."
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            />
-            <button
-              className={styles.postCommentButton}
-              onClick={postCommentHandler}
-            >
-              Post
-            </button>
-          </div>
+        <CommentList comments={comments} />
+        <div className={styles.postComment}>
+          <button className={styles.likebutton} onClick={likeHandler}>
+            <img src={showLike===true ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>
+          </button>
+          <input
+            className={styles.input}
+            placeholder="comment goes here..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <button
+            className={styles.postCommentButton}
+            onClick={postCommentHandler}
+          >
+            Post
+          </button>
         </div>
       </div>
     </div>

@@ -26,3 +26,8 @@
 .changepassword{
     margin: 20px 0 0 0;
 }
+@media only screen and (max-width: 768px) {
+    .userinfowrapper{
+        padding: 0 40px;
+    }
+}

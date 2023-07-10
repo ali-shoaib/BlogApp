@@ -38,9 +38,11 @@
 .searchBlogInput{
     display: flex;
     flex-direction: column;
-    width: inherit;
+    width: 400px;
+    max-width: 98%;
     align-items: center;
     position: relative;
+    margin: auto;
 }
 .searchBlogInput .searchicon{
     position: absolute;
@@ -53,9 +55,9 @@
     background-size: 35px;
     padding: 18px 30px;
     display: block;
-    margin: 40px auto 0 auto;
+    width: 100%;
+    margin-top: 30px;
     outline: none;
-    width: 30%;
     border: 1px solid #fff;
     border-radius: 35px;
     font-size: 20px;
