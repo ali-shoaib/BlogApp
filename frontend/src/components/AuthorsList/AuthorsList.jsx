@@ -1,10 +1,10 @@
 import styles from "./AuthorsList.module.css";
 
-function AuthorsList({authors, loading}){
+function AuthorsList({authors}){
     return (
         <ul className={styles.wrapper}>
-            {loading?
-            <li>Loading</li>
+            {authors.length === 0 ?
+            <li>None</li>
             : 
             authors.length>0 &&
                 authors.map(auth => (

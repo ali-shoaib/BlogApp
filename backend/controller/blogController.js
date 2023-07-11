@@ -7,6 +7,7 @@ const Comment = require("../models/comment");
 const { BACKEND_SERVER_PATH } = require("../config");
 const Like = require('../models/like');
 const LikeDTO = require('../dto/like');
+const User = require('../models/user');
 
 const mongodbIdPattern = /^[0-9a-fA-F]{24}$/;
 
@@ -69,14 +70,19 @@ const blogController = {
   },
   async getAll(req, res, next) {
     try {
+      const {author} = req.params;
+      
       const blogs = await Blog.find({});
 
       const blogsDto = [];
 
       for (let i = 0; i < blogs.length; i++) {
         const dto = new BlogDTO(blogs[i]);
+       
         dto.likesCount = await LikesCountMehod(blogs[i]._id);
         dto.commentsCount = await CommentsCountMehod(blogs[i]._id)
+        dto.authorLike = await AuthorLike(blogs[i]._id, author);
+        dto.authorsWhoLiked = await authorsWhoLiked(blogs[i]._id);
         blogsDto.push(dto);
       }
 
@@ -231,6 +237,22 @@ async function LikesCountMehod(blog){
   }
 }
 
+async function AuthorLike(blog, author){
+  try{
+    let likes = await Like.find({});
+
+    for (let i = 0; i < likes.length; i++) {
+      if(likes[i].blog.toString() === blog.toString() && likes[i].author.toString() === author.toString() && likes[i].like){
+        return true;
+      }
+    }
+    return false;
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+
 async function CommentsCountMehod(blog){
   try{
     let com = await Comment.find({});
@@ -245,6 +267,24 @@ async function CommentsCountMehod(blog){
   }
   catch(err){
     console.log(err);
+  }
+}
+
+async function authorsWhoLiked(blog){
+  try{
+      const likes = await Like.find({blog:blog});
+
+      const users = await User.find({_id: likes.map(x => {return x.author})});
+
+      let onlyAuthors = [];
+      for (let j=0; j < users.length; j++){
+          onlyAuthors.push({_id: users[j]?._id, name: users[j]?.name, blog:blog});
+      }
+
+      return onlyAuthors;
+  }
+  catch(err){
+      next(err);
   }
 }
 

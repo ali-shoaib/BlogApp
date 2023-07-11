@@ -45,11 +45,11 @@ export const signout = async (data) => {
   return response;
 };
 
-export const getBlogs = async (data) => {
+export const getBlogs = async (author) => {
   let response;
 
   try {
-    response = await api.get("blog/all", data);
+    response = await api.get(`blog/all/${author}`);
   } catch (error) {
     return error;
   }
@@ -168,6 +168,18 @@ export const getAllAuthorsWhoLiked = async (body) => {
 
   try {
     response = await api.post(`like/authors`,body);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+export const updateComment = async (body) => {
+  let response;
+
+  try {
+    response = await api.post(`comment/update`,body);
   } catch (error) {
     return error;
   }

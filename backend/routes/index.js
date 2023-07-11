@@ -34,7 +34,7 @@ router.post('/deleteuser', authController.deleteUser);
 router.post('/blog/create', auth, blogController.create);
 
 //getAllBlogs
-router.get('/blog/all', auth, blogController.getAll);
+router.get('/blog/all/:author', auth, blogController.getAll);
 
 //DeleteABlogs
 router.post('/blog/delete', auth, blogController.delete);
@@ -62,5 +62,8 @@ router.get('/like/deleteAll', auth, likeController.deleteAll);
 
 //getAllAuthorsWhoLiked
 router.post('/like/authors', auth, likeController.allAuthors);
+
+//UpdateComment
+router.post('/comment/update', auth, commentController.updateComment);
 
 module.exports = router;

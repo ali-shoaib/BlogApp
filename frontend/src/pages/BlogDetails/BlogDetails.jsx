@@ -122,24 +122,27 @@ function BlogDetails() {
     return <Error errmessage={blog.message}/>
   }
 
+  const getClass = () => {
+    if (!show) return "";
+    return styles.active;
+  };
+
   return (
     <div className={styles.detailsWrapper}>
       <div className={styles.left}>
         {ownsBlog && <button onClick={()=>setShow(!show)} className={styles.options}>...</button>}
-        {show && (
-          <div className={styles.optionlist}>
-            <button
-              className={styles.editButton}
-              onClick={() => {
-                navigate(`/blog-update/${blog._id}`);
-              }}
-            >Edit</button>
-            <button
-              className={styles.deleteButton}
-              onClick={deleteBlogHandler}
-            >Delete</button>
-          </div>        
-        )}
+        <div className={`${styles.optionlist} ${getClass()}`}>
+          <button
+            className={styles.editButton}
+            onClick={() => {
+              navigate(`/blog-update/${blog._id}`);
+            }}
+          >Edit</button>
+          <button
+            className={styles.deleteButton}
+            onClick={deleteBlogHandler}
+          >Delete</button>
+        </div>        
         <p className={styles.postInfo}>@{blog.authorUsername}</p>
         <p className={styles.postInfo}>{showDate(blog.createdAt)}</p>
         <div className={styles.photo}>
@@ -149,7 +152,7 @@ function BlogDetails() {
         <p className={styles.content}>{blog.content}</p>
       </div>
       <div className={styles.right}>
-        <CommentList comments={comments} />
+        <CommentList comments={comments} reload={reload} setReload={setReload}/>
         <div className={styles.postComment}>
           <button className={styles.likebutton} onClick={likeHandler}>
             <img src={showLike===true ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>

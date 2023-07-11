@@ -63,6 +63,22 @@ const commentController = {
         }
 
         return res.status(200).json({data: commentsDto});
+    },
+    async updateComment(req, res, next){
+        try{
+            const {id, content, author} = req.body;
+
+            await Comment.updateOne({_id:id, author: author},{content:content});
+
+            return res.status(200).json({message: 'Comment updated!'});
+
+            // let com = await Comment.find({_id: id}).populate('author');
+
+            // return res.status(200).json({message: com});
+        }
+        catch(err){
+            next(err);
+        }
     }
 }
 
