@@ -28,10 +28,12 @@
     height: 300px;
     border-radius: 10px;
   }
+
+
   
   .blog h1 {
-    text-align: left;
-    margin: 10px 0 15px 0;
+    text-align: center;
+    margin: 10px auto 15px auto;
     background-color: transparent;
     color: #fff;
   }
@@ -41,8 +43,14 @@
   }
   
   .blog p {
-    margin-top: 20px;
+    background-color: transparent;
+    margin: 20px auto 0 auto;
+    text-align: center;
     font-weight: bold;
+    white-space: nowrap; 
+    width: 95%; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
   }
   .likebutton{
     width: 45px;
@@ -65,6 +73,7 @@
     background: #fff;
     border:none;
     width: 100%;
+    cursor: pointer;
   }
   .likebutton img{
     background: transparent;

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin: 0 50px;
+    margin: 0;
     flex-wrap: wrap;
   }
   
@@ -90,22 +90,33 @@
     background-color: #1f4ffd;
   }
   
-  .input {
+  .commentInput {
     border: none;
     padding: 10px 10px;
     color: #bebcc0;
     font-size: 18px;
     border-radius: 10px;
     outline: none;
-    margin: 0 10px;
+    margin: 0 5px 0 5px;
     border: 1px solid #fff;
-    flex: 1;
+    width: 100%;
   }
-  
+
+  .content{
+    width: 500px;
+    max-width: 100%;
+  }
+
   .postComment {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
+    padding: 6px;
+    border-radius: 7px;
+    width: 800px;
+    max-width: 100%;
+    margin: auto;
   }
   .options{
     position: absolute;
@@ -138,17 +149,21 @@
   }
   .likebutton{
     border-radius: 10px;
-    background: #fff;
-    border:none;
-    width: 40px;
+    background: none;
+    border: none;
+    width: 35px;
     cursor: pointer;
+    padding: 0;
   }
   .like{
-    background: transparent;
+    background: none;
     width: 100%;
   }
 
   @media only screen and (max-width: 768px) {
+    .title{
+      font-size: 30px;
+    }
     .left{
       width: 100%;
     }
@@ -159,9 +174,9 @@
     .postComment{
       display: block;
     }
-    .postComment input {
-      margin: 10px 0 10px 0;
-      width: 100%;
+    .commentInput {
+      margin: 0;
+      width: 95%;
     }
     .photo img{
       width: 100%;
@@ -171,5 +186,9 @@
     }
     .optionlist{
       top: 44px;
+    }
+    .postCommentButton{
+      margin: 5px 0 0 0;
+      width: 100%;
     }
   }

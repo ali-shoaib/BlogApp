@@ -155,10 +155,10 @@ function BlogDetails() {
         <CommentList comments={comments} reload={reload} setReload={setReload}/>
         <div className={styles.postComment}>
           <button className={styles.likebutton} onClick={likeHandler}>
-            <img src={showLike===true ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>
+            <img src={showLike ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>
           </button>
           <input
-            className={styles.input}
+            className={styles.commentInput}
             placeholder="comment goes here..."
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}

@@ -1,6 +1,7 @@
 .wrapper {
     margin: 0 auto;
-    width: 500px;
+    width: 600px;
+    max-width: 98%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,13 +11,12 @@
   .header {
     font-size: 48px;
     font-weight: bold;
-    width: inherit;
     text-align: center;
     margin: 20px 0;
   }
   
   .content {
-    padding: 18px 30px;
+    padding: 18px 15px;
     margin: 15px 0 20px 0;
     outline: none;
     border-radius: 10px;

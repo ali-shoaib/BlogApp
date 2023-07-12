@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 import Loader from '../../components/Loader/Loader';
-import { getBlogs } from "../../api/internal";
+import { getBlogs, like } from "../../api/internal";
 import styles from "./Blog.module.css";
 import { useNavigate } from "react-router-dom";
 import likeicon from '../../assets/images/like.png'
@@ -14,6 +14,7 @@ function Blog() {
   const navigate = useNavigate();
 
   const [blogs, setBlogs] = useState([]);
+  const [showLike,setShowLike] = useState(false);
 
   const userId = useSelector((state) => state.user._id);
 
