@@ -13,6 +13,7 @@ const authController={
             username: Joi.string().min(6).max(30).required(),
             name: Joi.string().max(30).required(),
             email: Joi.string().email().required(),
+            gender: Joi.string().required(),
             password: Joi.string().pattern(passwordPattern).required(),
             confirmPassword: Joi.ref('password')
         })
@@ -23,7 +24,7 @@ const authController={
             return next(error);
         }
 
-        const { username, name, email, password } = req.body;
+        const { username, name, email, password, gender } = req.body;
 
         try {
             const emailInUse = await User.exists({ email });
@@ -66,6 +67,7 @@ const authController={
                 email,
                 name,
                 password: hashedPassword,
+                gender
             });
     
             user = await userToRegister.save();

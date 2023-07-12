@@ -8,12 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import {RotatingLines} from 'react-loader-spinner';
+import SelectInput from '../../components/SelectInput/SelectInput';
 
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const [isLoading,setIsLoading] = useState(false);
+
+  const options = ["Male","Female"];
 
   const handleSignup = async () => {
     setIsLoading(true);
@@ -45,6 +48,7 @@ function Signup() {
       email: "",
       password: "",
       confirmPassword: "",
+      gender: ""
     },
 
     validationSchema: SignupSchema,
@@ -108,6 +112,12 @@ function Signup() {
           errors.confirmPassword && touched.confirmPassword ? 1 : undefined
         }
         errormessage={errors.confirmPassword}
+      />
+
+      <SelectInput
+      value={values.gender}
+      onChange={handleChange}
+      options={options}
       />
 
       <button

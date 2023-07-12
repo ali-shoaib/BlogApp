@@ -21,6 +21,7 @@ const signupSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref("password")], "passwords must match")
     .required(),
+  gender: yup.string().required()
 });
 
 export default signupSchema;
