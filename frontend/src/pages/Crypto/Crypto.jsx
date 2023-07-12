@@ -33,40 +33,36 @@ function Crypto() {
     };
   return (
     <table className={styles.table}>
-      <thead>
-        <tr className={styles.head}>
-          <th>#</th>
-          <th>Coin</th>
-          <th>Symbol</th>
-          <th>Price</th>
-          <th>24h</th>
+      <tr>
+        <th>#</th>
+        <th>Coin</th>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>24h</th>
+      </tr>
+      {data.map((coin) => (
+        <tr key={coin.id}>
+          <td>{coin.market_cap_rank}</td>
+          <td>
+            <div className={styles.logo}>
+              <img src={coin.image} alt={coin.symbol} width={40} height={40} /> {coin.name}
+            </div>
+          </td>
+          <td>
+            <div>{coin.symbol}</div>
+          </td>
+          <td>{coin.current_price}</td>
+          <td
+            style={
+              coin.price_change_percentage_24h < 0
+                ? negativeStyle
+                : positiveStyle
+            }
+          >
+            {coin.price_change_percentage_24h}
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        {data.map((coin) => (
-          <tr key={coin.id} className={styles.tableRow}>
-            <td>{coin.market_cap_rank}</td>
-            <td>
-              <div className={styles.logo}>
-                <img src={coin.image} alt={coin.symbol} width={40} height={40} /> {coin.name}
-              </div>
-            </td>
-            <td>
-              <div className={styles.symbol}>{coin.symbol}</div>
-            </td>
-            <td>{coin.current_price}</td>
-            <td
-              style={
-                coin.price_change_percentage_24h < 0
-                  ? negativeStyle
-                  : positiveStyle
-              }
-            >
-              {coin.price_change_percentage_24h}
-            </td>
-          </tr>
-        ))}
-      </tbody>
+      ))}
     </table>
   )
 }

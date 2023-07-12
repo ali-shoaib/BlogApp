@@ -4,6 +4,9 @@ header{
     align-items: center;
     margin: 0 0 50px 0;
     position: relative;
+    box-shadow:0px 11px 29px #de1dde;
+    border-radius: 7px;
+    padding: 0 15px 0 15px;
 }
 .navbar{
     display: flex;
@@ -16,9 +19,8 @@ header{
     margin: 0 30px 0 0;
 }
 .logo{
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 700;
-    text-decoration: underline;
 }
 .activeStyle{
     color: #3861fb;
@@ -118,6 +120,9 @@ header{
         display: block;
         margin: 0 0 15px 0;
     } */
+    header{
+        padding: 0;
+    }
     .navbar > * > button{
         margin: 0;
     }
