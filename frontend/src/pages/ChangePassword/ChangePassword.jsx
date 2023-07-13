@@ -54,7 +54,7 @@ function ChangePassword() {
         } 
         else if (response.code) {
           // display error message
-          setError(response.response.statusText);
+          setError(response.response.data.message);
   
           setIsLoading(false);
         }

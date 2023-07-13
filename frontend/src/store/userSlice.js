@@ -7,6 +7,7 @@ const initialState = {
   username: "",
   createdAt:"",
   auth: false,
+  gender:""
 };
 
 export const userSlice = createSlice({
@@ -14,7 +15,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { _id, email, username, auth, name, createdAt } = action.payload;
+      const { _id, email, username, auth, name, createdAt, gender } = action.payload;
 
       state._id = _id;
       state.name = name;
@@ -22,6 +23,7 @@ export const userSlice = createSlice({
       state.email = email;
       state.username = username;
       state.auth = auth;
+      state.gender = gender
     },
     resetUser: (state) => {
       state._id = "";
@@ -30,6 +32,7 @@ export const userSlice = createSlice({
       state.username = "";
       state.createdAt = "";
       state.auth = false;
+      state.gender = "";
     },
   },
 });

@@ -7,17 +7,20 @@ import Error from '../Error/Error';
 
 function Home() {
   const [articles,setArticles]=useState([]);
+  const [loading,setLoading] = useState(false);
 
   useEffect(() => {
     (async function newsApiCall(){
+      setLoading(true);
       const response = await getNews();
       setArticles(response);
+      setLoading(false);
     })()
 
     setArticles([]);
   },[])
 
-  if(articles.length === 0){
+  if(loading){
     return <Loader text="homepage"/>;
   }
   else if(articles.code){
@@ -27,14 +30,6 @@ function Home() {
   return (
     <>
     <div className={styles.header}>Latest Articles</div>
-    {/* <div className={styles.grid}>
-      {articles.map(ar => (
-        <div className={styles.card} key={ar.url} onClick={() => handleCardClick(ar.url)}>
-          <img src={ar.urlToImage}/>
-          <h3>{ar.title}</h3>
-        </div>
-      ))}
-    </div> */}
     <Articles articles={articles}/>
     </>
   )

@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from "./SelectInput.module.css";
 
-function SelectInput({options, value, onChange}) {
+function SelectInput(props) {
   return (
-    <div className={styles.wrapper}>
-        <select value={value} onChange={onChange}>
+    <div className={styles.selectWrapper}>
+        <select {...props}>
         <option style={{display:'none'}}>Select Gender</option>  
-        {options.map((option) => (
-            <option key={option} value={option}>{option}</option>
+        {props.options.map((option) => (
+          <option key={option} value={option}>{option}</option>
         ))}
 
         </select>

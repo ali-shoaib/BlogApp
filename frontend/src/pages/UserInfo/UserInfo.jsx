@@ -11,6 +11,7 @@ function UserInfo() {
         <h2 className={style.name}>{userinfo.name}</h2>
         <span className={style.username}>@{userinfo.username}</span>
         <div className={style.infocontainer}>
+            <span>Gender: <b>{userinfo.gender}</b></span>
             <span>Email: <b>{userinfo.email}</b></span>
             <span>Joined on: <b>{showDate(userinfo.createdAt)}</b></span>
         </div>

@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,25}$/;
+const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$/;
 
 const erroMessage = "use lowercase, uppercase and digits";
 

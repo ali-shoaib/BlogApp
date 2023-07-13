@@ -27,6 +27,7 @@ function Signup() {
       password: values.password,
       confirmPassword: values.confirmPassword,
       email: values.email,
+      gender: values.gender,
     };
 
     const response = await signup(data);
@@ -37,7 +38,8 @@ function Signup() {
       navigate("/login");
     } else if (response.code) {
       // display error message
-      setError(response.response.statusText);
+      setError(response.response.data.message);
+      setIsLoading(false);
     }
   };
 
@@ -115,9 +117,14 @@ function Signup() {
       />
 
       <SelectInput
-      value={values.gender}
-      onChange={handleChange}
-      options={options}
+        name="gender"
+        value={values.gender}
+        onChange={handleChange}
+        options={options}
+        error={
+          errors.gender && touched.gender ? 1 : undefined
+        }
+        errormessage={errors.gender}
       />
 
       <button
@@ -128,7 +135,8 @@ function Signup() {
           !values.password ||
           !values.name ||
           !values.confirmPassword ||
-          !values.email
+          !values.email ||
+          !values.gender
         }
       >
         Sign Up

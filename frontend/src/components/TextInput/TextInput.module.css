@@ -37,7 +37,7 @@
 .searchBlogInput{
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 500px;
     max-width: 98%;
     align-items: center;
     position: relative;
@@ -52,10 +52,10 @@
     background-position-x: 97%;
     background-position-y: 50%;
     background-size: 35px;
-    padding: 18px 30px;
+    padding: 18px 20px;
     display: block;
     width: 100%;
-    max-width: 92%;
+    max-width: 98%;
     margin: 30px 0 0 0;
     outline: none;
     border: 1px solid #fff;

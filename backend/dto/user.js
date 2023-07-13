@@ -5,6 +5,7 @@ class UserDTO{
         this.name = user.name;
         this.email = user.email;
         this.createdAt = user.createdAt;
+        this.gender = user.gender;
     }
 }
 

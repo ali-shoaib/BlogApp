@@ -35,7 +35,8 @@ function Login() {
             username: response.data.user.username,
             name: response.data.user.name,
             auth: response.data.auth,
-            createdAt: response.data.user.createdAt
+            createdAt: response.data.user.createdAt,
+            gender: response.data.user.gender
         };
 
         dispatch(setUser(user));
@@ -46,7 +47,7 @@ function Login() {
       } 
       else if (response.code) {
         // display error message
-        setError(response.response.statusText);
+        setError(response.response.data.message);
 
         setIsLoading(false);
       }

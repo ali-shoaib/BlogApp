@@ -14,17 +14,21 @@ function Blog() {
   const navigate = useNavigate();
 
   const [blogs, setBlogs] = useState([]);
-  const [showLike,setShowLike] = useState(false);
-
+  const [loading,setLoading] = useState(false);
   const userId = useSelector((state) => state.user._id);
+  const [message, setMessage] = useState(null);
 
   const getAllBlogsApiCall = async() => {
-    const response = await getBlogs(userId);
+    setLoading(true);
+    let response = await getBlogs(userId);
 
     if (response.status === 200) {
-      console.log(response.data.blogs);
       setBlogs(response.data.blogs);
     }
+    else{
+      setMessage(response);
+    }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -38,13 +42,14 @@ function Blog() {
     data[index].hover = value;
     setBlogs(data);
   }
-
-  if (blogs.length === 0) {
+  
+  if (loading) {
     return <Loader text="blogs" />;
   }
-  else if(blogs.code){
-    return <Error errmessage={blogs.message}/>
+  else if(message){
+    return <Error errmessage={message.response.data.message} />;
   }
+
   return (
     <div className={styles.blogsWrapper}>
       {blogs.map((blog,index) => (
@@ -73,6 +78,7 @@ function Blog() {
           </div>
         </div>
       ))}
+      {blogs.length === 0 && <span>No Blogs Found</span>}
     </div>
   )
 }

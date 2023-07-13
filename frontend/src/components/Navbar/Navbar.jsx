@@ -31,7 +31,7 @@ function Navbar() {
   return (
     <header>
       <NavLink to="/" className={style.logo}>
-        CoinBounce
+        CoinNews
       </NavLink>
       <nav ref={navref} className={`${style.navbar} ${getNavClass()}`}>
         <NavLink

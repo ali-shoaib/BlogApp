@@ -1,7 +1,7 @@
-.wrapper{
-    width: 100%;
+.selectWrapper{
+    width: 106%;
 }
-.wrapper select{
+.selectWrapper select{
     padding: 18px 15px;
     width: 100%;
     border: 1px solid #fff;
