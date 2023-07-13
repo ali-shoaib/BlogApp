@@ -58,18 +58,19 @@ function Blog() {
           className={styles.blog}
           onClick={() => navigate(`/blog/${blog._id}`)}
         >
-          {blog.hover && <AuthorsList authors={blog.authorsWhoLiked}/>}
+          {blog.hover && <AuthorsList likeauthors={blog.authorsWhoLiked} id={1}/>}
+          {blog.hover && <AuthorsList comauthors={blog.authorsWhoCommented} id={2}/>}
           <h1>{blog.title}</h1>
           <img className={styles.photo} src={blog.photo} alt={blog.title} />
           <p>{blog.content}</p>
           <div className={styles.activityWrapper}>
-            <div className={styles.likebutton}>
+            <div className={styles.likebutton} onMouseEnter={() => onHover(index, true)} onMouseLeave={() => onHover(index, false)}>
               <button>
                 <img src={blog.authorLike ? likeicon : unlikeicon} alt='like_button'/>
               </button>
-              <span onMouseEnter={() => onHover(index, true)} onMouseLeave={() => onHover(index, false)}>{blog.likesCount}</span>
+              <span>{blog.likesCount}</span>
             </div>
-            <div className={styles.commentbutton}>
+            <div className={styles.commentbutton} onMouseEnter={() => onHover(index, true)} onMouseLeave={() => onHover(index, false)}>
               <span>{blog.commentsCount}</span>
               <button>
                 <img src={commenticon} alt='comment_button'/>

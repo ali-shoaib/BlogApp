@@ -83,6 +83,7 @@ const blogController = {
         dto.commentsCount = await CommentsCountMehod(blogs[i]._id)
         dto.authorLike = await AuthorLike(blogs[i]._id, author);
         dto.authorsWhoLiked = await authorsWhoLiked(blogs[i]._id);
+        dto.authorsWhoCommented = await authorsWhoCommented(blogs[i]._id);
         blogsDto.push(dto);
       }
 
@@ -272,19 +273,37 @@ async function CommentsCountMehod(blog){
 
 async function authorsWhoLiked(blog){
   try{
-      const likes = await Like.find({blog:blog});
+    const likes = await Like.find({blog:blog});
 
-      const users = await User.find({_id: likes.map(x => {return x.author})});
+    const users = await User.find({_id: likes.map(x => {return x.author})});
 
-      let onlyAuthors = [];
-      for (let j=0; j < users.length; j++){
-          onlyAuthors.push({_id: users[j]?._id, name: users[j]?.name, blog:blog});
-      }
+    let onlyAuthors = [];
+    for (let j=0; j < users.length; j++){
+      onlyAuthors.push({_id: users[j]?._id, name: users[j]?.name, blog:blog});
+    }
 
-      return onlyAuthors;
+    return onlyAuthors;
   }
   catch(err){
-      next(err);
+    next(err);
+  }
+}
+
+async function authorsWhoCommented(blog){
+  try{
+    const com = await Comment.find({blog:blog});
+
+    const users = await User.find({_id: com.map(x => {return x.author})});
+
+    let onlyAuthors = [];
+    for (let j=0; j < users.length; j++){
+      onlyAuthors.push({_id: users[j]?._id, name: users[j]?.name, blog:blog});
+    }
+
+    return onlyAuthors;
+  }
+  catch(err){
+    next(err);
   }
 }
 

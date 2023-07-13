@@ -10,6 +10,7 @@ class BlogDTO{
         this.authorLike = blog.authorLike;
         this.authorsWhoLiked = blog.authorsWhoLiked;
         this.hover = false;
+        this.authorsWhoCommented = blog.authorsWhoCommented;
     }
 }
 

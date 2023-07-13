@@ -1,4 +1,4 @@
-.wrapper{
+.left{
     position: absolute;
     left: 105px;
     bottom: 37px;
@@ -7,6 +7,15 @@
     border-radius: 7px;
     width: auto;
 }
-.wrapper > *{
-    font-size: 12px;
+.left > *, .right > *{
+    font-size: 13px;
+}
+.right{
+    position: absolute;
+    right: 50px;
+    bottom: 37px;
+    list-style-type: none;
+    padding: 5px;
+    border-radius: 7px;
+    width: auto;
 }
