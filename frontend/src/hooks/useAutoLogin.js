@@ -28,7 +28,8 @@ function useAutoLogin() {
             username: response.data.user.username,
             auth: response.data.auth,
             name: response.data.user.name,
-            createdAt: response.data.user.createdAt
+            createdAt: response.data.user.createdAt,
+            gender : response.data.user.gender
           };
 
           dispatch(setUser(user));

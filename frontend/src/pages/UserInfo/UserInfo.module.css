@@ -11,7 +11,8 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 280px;
+    width: 400px;
+    max-width: 100%;
     height: auto;
     background: #fff;
     padding: 10px;
