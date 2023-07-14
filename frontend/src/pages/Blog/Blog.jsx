@@ -66,13 +66,13 @@ function Blog() {
     setBlogs([]);
   }, []);
 
-  const onHover=(index, value, ego)=>{
-    if(ego === 'com'){
+  const onHover=(index, value, text)=>{
+    if(text === 'com'){
       const data = [...blogs];
       data[index].hoverComment = value;
       setBlogs(data);
     }
-    else if(ego === 'like'){
+    else if(text === 'like'){
       const data = [...blogs];
       data[index].hoverLike = value;
       setBlogs(data);
