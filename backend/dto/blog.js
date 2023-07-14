@@ -9,7 +9,8 @@ class BlogDTO{
         this.commentsCount = blog.commentsCount;
         this.authorLike = blog.authorLike;
         this.authorsWhoLiked = blog.authorsWhoLiked;
-        this.hover = false;
+        this.hoverLike = false;
+        this.hoverComment = false;
         this.authorsWhoCommented = blog.authorsWhoCommented;
     }
 }

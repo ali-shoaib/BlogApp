@@ -28,8 +28,6 @@
     height: 300px;
     border-radius: 10px;
   }
-
-
   
   .blog h1 {
     text-align: center;
@@ -73,7 +71,6 @@
     background: #fff;
     border:none;
     width: 100%;
-    cursor: pointer;
   }
   .likebutton img{
     background: transparent;
@@ -112,3 +109,24 @@
     border-radius: 0 0 10px 10px;
     padding: 5px 0 4px 0;
   }
+  .left{
+    position: absolute;
+    left: 105px;
+    bottom: 37px;
+    list-style-type: none;
+    padding: 5px;
+    border-radius: 7px;
+    width: auto;
+}
+.left > *, .right > *{
+    font-size: 13px;
+}
+.right{
+    position: absolute;
+    right: 50px;
+    bottom: 37px;
+    list-style-type: none;
+    padding: 5px;
+    border-radius: 7px;
+    width: auto;
+}

@@ -7,8 +7,37 @@ import likeicon from '../../assets/images/like.png'
 import unlikeicon from '../../assets/images/unlike.png'
 import commenticon from '../../assets/images/commenticon.png'
 import Error from "../Error/Error";
-import AuthorsList from '../../components/AuthorsList/AuthorsList';
 import { useSelector } from "react-redux";
+
+function AuthorsWhoLiked({authorsWhoLiked}){
+  return (
+    <ul className={styles.left}>
+      {authorsWhoLiked.length === 0 ?
+      <li>None</li>
+      :
+      authorsWhoLiked.length>0 &&
+        authorsWhoLiked.map(auth => (
+          <li key={auth._id}>{auth.name}</li>
+        ))
+      }
+    </ul>
+  )
+}
+
+function AuthorsWhoCommented({authorsWhoCommented}){
+  return (
+    <ul className={styles.right}>
+      {authorsWhoCommented.length === 0 ?
+      <li>None</li>
+      :
+      authorsWhoCommented.length>0 &&
+        authorsWhoCommented.map(auth => (
+          <li key={auth._id}>{auth.name}</li>
+        ))
+      }
+    </ul>
+  )
+}
 
 function Blog() {
   const navigate = useNavigate();
@@ -37,10 +66,17 @@ function Blog() {
     setBlogs([]);
   }, []);
 
-  const onHover=(index, value)=>{
-    const data = [...blogs];
-    data[index].hover = value;
-    setBlogs(data);
+  const onHover=(index, value, ego)=>{
+    if(ego === 'com'){
+      const data = [...blogs];
+      data[index].hoverComment = value;
+      setBlogs(data);
+    }
+    else if(ego === 'like'){
+      const data = [...blogs];
+      data[index].hoverLike = value;
+      setBlogs(data);
+    }
   }
   
   if (loading) {
@@ -58,19 +94,19 @@ function Blog() {
           className={styles.blog}
           onClick={() => navigate(`/blog/${blog._id}`)}
         >
-          {blog.hover && <AuthorsList likeauthors={blog.authorsWhoLiked} id={1}/>}
-          {blog.hover && <AuthorsList comauthors={blog.authorsWhoCommented} id={2}/>}
+          {blog.hoverLike && <AuthorsWhoLiked authorsWhoLiked={blog.authorsWhoLiked}/>}
+          {blog.hoverComment && <AuthorsWhoCommented authorsWhoCommented={blog.authorsWhoCommented}/>}
           <h1>{blog.title}</h1>
           <img className={styles.photo} src={blog.photo} alt={blog.title} />
           <p>{blog.content}</p>
           <div className={styles.activityWrapper}>
-            <div className={styles.likebutton} onMouseEnter={() => onHover(index, true)} onMouseLeave={() => onHover(index, false)}>
+            <div className={styles.likebutton} onMouseEnter={() => onHover(index, true, 'like')} onMouseLeave={() => onHover(index, false, 'like')}>
               <button>
                 <img src={blog.authorLike ? likeicon : unlikeicon} alt='like_button'/>
               </button>
               <span>{blog.likesCount}</span>
             </div>
-            <div className={styles.commentbutton} onMouseEnter={() => onHover(index, true)} onMouseLeave={() => onHover(index, false)}>
+            <div className={styles.commentbutton} onMouseEnter={() => onHover(index, true, 'com')} onMouseLeave={() => onHover(index, false, 'com')}>
               <span>{blog.commentsCount}</span>
               <button>
                 <img src={commenticon} alt='comment_button'/>
