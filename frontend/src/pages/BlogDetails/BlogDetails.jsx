@@ -157,6 +157,7 @@ function BlogDetails() {
           <button className={styles.likebutton} onClick={likeHandler}>
             <img src={showLike ? likeicon : unlikeicon} className={styles.like} alt='like_button'/>
           </button>
+          <span className={styles.likesCount}>{blog.likesCount}</span>
           <input
             className={styles.commentInput}
             placeholder="comment goes here..."

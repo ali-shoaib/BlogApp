@@ -7,6 +7,7 @@ class BlogDetailsDTO{
         this.createdAt = blog.createdAt;
         this.authorName = blog.author?.name;
         this.authorUsername = blog.author?.username;
+        this.likesCount = this.likesCount;
     }
 }
 

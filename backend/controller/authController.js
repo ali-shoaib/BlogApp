@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const UserDTO = require('../dto/user');
 const JWTService = require('../services/JWTService');
 const RefreshToken = require("../models/token");
+const nodemail = require('nodemailer');
 
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/;
 
@@ -341,6 +342,72 @@ const authController={
         }
         catch(err){
             res.status(500).json({success:false, message: err});
+        }
+    },
+    async forgetPassword(req,res,next){
+        try{
+            const {email, password} = req.body;
+
+            let user;
+            user = await User.findOne({email});
+
+            if (!user) {
+                const error = {
+                  status: 401,
+                  message: "Invalid email",
+                };
+        
+                return next(error);
+            }
+
+            const match = await bcrypt.compare(password, user.password);
+
+            if(!match){
+                const error = {
+                    status:401,
+                    message:'Invalid Password'
+                }
+                
+                return next(error);
+            }
+
+            let options = {
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false, 
+                requireTLS: true,
+                auth:{
+                    user: "yolohoxoyolo@gmail.com",
+                    pass: "yolohoxo@2000"
+                },
+                tls: {
+                    // do not fail on invalid certs
+                    rejectUnauthorized: false,
+                },
+            }
+
+            let data= {
+                from:"yolohoxoyolo@gmail.com",
+                to:email,
+                subject:"Password Reset",
+                html:`<p>Hi ${email}, Change your password.<p>`
+            }
+
+            let response;
+            const transporter = nodemail.createTransport(options);
+            transporter.sendMail(data , (err, info) => {
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({success:false, data: err});
+                }
+                else{
+                    response = info.response;
+                    return res.status(200).json({success:true, data: response});
+                }
+            })
+        }
+        catch(err){
+            next(err);
         }
     }
 }

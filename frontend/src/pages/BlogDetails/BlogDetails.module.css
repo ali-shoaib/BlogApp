@@ -115,6 +115,7 @@
     width: 800px;
     max-width: 100%;
     margin: 20px auto;
+    position: relative;
   }
   .options{
     position: absolute;
@@ -157,6 +158,12 @@
     background: none;
     width: 100%;
   }
+  .likesCount{
+    background: transparent;
+    color: #fd6d6d;
+    font-size: 22px;
+    margin: 0 0 0 4px;
+  }
 
   @media only screen and (max-width: 768px) {
     .title{
@@ -189,6 +196,10 @@
     .postCommentButton{
       margin: 5px 0 0 0;
       width: 100%;
+    }
+    .likesCount{
+      position: absolute;
+      top: 11px;
     }
   }
 

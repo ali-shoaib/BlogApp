@@ -118,6 +118,8 @@ const blogController = {
 
     const blogDto = new BlogDetailsDTO(blog);
 
+    blogDto.likesCount = await LikesCountMehod(blog._id);
+
     return res.status(200).json({ blog: blogDto });
   },
   async update(req, res, next) {
@@ -279,7 +281,9 @@ async function authorsWhoLiked(blog){
 
     let onlyAuthors = [];
     for (let j=0; j < users.length; j++){
-      onlyAuthors.push({_id: users[j]?._id, name: users[j]?.name, blog:blog});
+      if(likes[j].like){
+        onlyAuthors.push({_id: users[j]?._id, name: users[j]?.name, blog:blog});
+      }
     }
 
     return onlyAuthors;

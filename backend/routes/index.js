@@ -66,4 +66,7 @@ router.post('/like/authors', auth, likeController.allAuthors);
 //UpdateComment
 router.post('/comment/update', auth, commentController.updateComment);
 
+//forget password
+router.post('/forget-password', auth, authController.forgetPassword);
+
 module.exports = router;
