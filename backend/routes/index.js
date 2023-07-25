@@ -7,7 +7,13 @@ const commentController = require('../controller/commentController');
 const likeController = require('../controller/likeController');
 
 //testing
-router.get('/test', (req, res) => res.send("Hello world 123"));
+router.get('/test', (req, res) => {
+    console.log("ola! => ",req)
+    return res.status(200).send({
+        success:true,
+        message:"good work!",
+    });
+});
 
 //login
 router.post('/login', authController.login);

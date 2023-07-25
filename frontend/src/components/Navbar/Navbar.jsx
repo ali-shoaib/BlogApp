@@ -17,11 +17,6 @@ function Navbar() {
   };
 
   const navref = useRef();
-  function showNavbar() {
-    console.info("hello nav!");
-    navref.current.classList.toggle("responsive_nav");
-    // document.querySelector(".navbar").classList.toggle("responsive_nav");
-  }
 
   const getNavClass = () => {
     if (!showNav) return "";
